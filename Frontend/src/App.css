@@ -1,7 +1,10 @@
 .App {
   text-align: center;
 }
-
+.Reminder{
+  background-color: #e8f0fe;
+height:1000px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

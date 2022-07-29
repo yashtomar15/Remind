@@ -1,6 +1,9 @@
 import {useEffect,useState} from 'react';
 import { SetReminder } from './components/SetReminder';
 import './App.css';
+import axios from 'axios';
+import {Reminders} from './components/Reminders';
+// import CustomDateTimePicker from './components/DateTime';
 
 function App() {
 const [currentTime,setCurrentTime]=useState(new Date().toString());
@@ -26,6 +29,16 @@ useEffect(()=>{
       }
     })
   }
+  axios.get('https://remind13.herokuapp.com/reminder/62e3e01b166c3cb73abdbfc4')
+  .then((res)=>{
+    console.log(res.data,": response");
+    let sortedReminder=res.data;
+    sortedReminder=sortedReminder.sort((a,b)=>{return Number(a.time.slice(19,21)) - Number(b.time.slice(19,21))});
+    setReminders(sortedReminder);
+    console.log(reminders,": reminders from backend");
+  }).catch((err)=>{
+    console.log(err,":error")
+  })
 },[])
 
 
@@ -50,12 +63,18 @@ useEffect(()=>{
     setReminders(sortedReminder);
       console.log(reminders,": reminders from app");
   }
+
   // console.log(reminders,": reminders from app");
+
   return (
     <div className="App">
-    <h1>Remind</h1>
-    <p>{currentTime}</p>
+     <div className="Reminder">
+            <h1 style={{color:'#56b389'}}>Remind</h1>
+    <p>{currentTime.toString().slice(0,24)}</p>
     <SetReminder addReminder={addReminder}/>
+    <Reminders reminders={reminders}/>
+    {/* <CustomDateTimePicker /> */}
+      </div>
     </div>
   );
 }

@@ -1,15 +1,14 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import {useState} from 'react';
 import DateTimePicker from 'react-datetime-picker';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import styles from './reminder.module.css';
 
 export const SetReminder=({addReminder})=>{
     const [reminder,setReminder]=useState({});
-    // let reminder={reminder:"test",time:new Date().toString()};
-
     const [value, onChange] = useState(new Date());
-
-    // console.log(value.toString().slice(16,24), typeof value,": date and time")
-    // console.log(new Date(),": current date");
 
     const handleChange=(e)=>{
     //    console.log(e.target.value,":",e.target.name);
@@ -17,21 +16,32 @@ export const SetReminder=({addReminder})=>{
     }
 
     useEffect(()=>{
-        setReminder({...reminder,time:value.toString()});
-        // console.log('reminder render');
+        setReminder({...reminder,time:value.toString(),userid:"62e3e01b166c3cb73abdbfc4"});
     },[value]);
 
     const handleAdd=(e)=>{
         e.preventDefault();
         console.log(reminder,": reminder");
-      addReminder(reminder);
+    //   addReminder(reminder);
+    axios.post('https://remind13.herokuapp.com/reminder',reminder)
+         .then((res)=>{
+            console.log(res.data,":post response");
+            addReminder(res.data.response);
+         })
+         .catch((err)=>{
+            console.log(err,'err from post');
+         })
     }
     return (<>
-    <form onSubmit={handleAdd}>
-        <input type={'text'} name="reminder" onChange={handleChange} placeholder="I have to do.." />
-        <input type={"text"} name="link" onChange={handleChange} placeholder="Metting link.."  />
-        <DateTimePicker onChange={onChange} value={value} />
-        <input type={'submit'}  value="Remind me" onChange={handleChange}/>
+    <form className={styles.form}>
+        <input className={styles.inputBox} type={'text'} name="task" onChange={handleChange} placeholder="I have to do.." />
+        <input className={styles.inputBox} type={"text"} name="link" onChange={handleChange} placeholder="Metting link.."  />
+        <DateTimePicker onChange={onChange} value={value} className={styles.time}/>
+        {/* <Box className={styles.button}> */}
+        <Button variant="contained" size="medium" onClick={handleAdd} style={{backgroundColor:"#56b389"}}>
+          Remind me 
+        </Button>
+        {/* </Box> */}
     </form>
     </>)
 }
