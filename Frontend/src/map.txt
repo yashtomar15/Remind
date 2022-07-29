@@ -1,0 +1,9 @@
+For Signin/Signup
+1. for Signup (storing users data)
+    https://bonsai15.herokuapp.com/user/Signup
+
+2. for login 
+    https://bonsai15.herokuapp.com/user/login
+
+3. for getting user profile by user id
+    https://bonsai15.herokuapp.com/profile/"userid"
