@@ -16,52 +16,27 @@ const [reminders,setReminders]=useState([]);
     // }
   }
 // showReminder();
-  //   if(Notification.permission==="granted" ){
-  //     alert("we havae a permission");
-  //       // showReminder();
-  //   }else if(Notification.permission!=="denied"){
-  //     Notification.requestPermission().then(permission=>{
-  //       console.log(permission);
-  //       if(permission==='granted'){
-  //        showReminder();
-  //       }
-  //     })
-  //   }
+useEffect(()=>{
+  if(Notification.permission==="default"){
+    Notification.requestPermission().then(permission=>{
+      console.log(permission);
+      if(permission==='granted' ){
+        console.log(permission,': granted')
+         alert("Now you can get your reminders");
+      }
+    })
+  }
+},[])
+
 
   setInterval(()=>{
-    let currMin=currentTime.slice(19,21);
-  
-    // console.log(currentTime);
-  //  if(reminders[0]){
-  //   let reminderSmallestMin=reminders[0].time.slice(19,21);
-  //   let reminderLargestMin=reminders[reminders.length-1].time.slice(19,21);
-  //   // console.log(reminderSmallestMin,":small min");
-
-  //   if(reminders.length===1 && currMin===reminderSmallestMin && currentTime===reminders[0].time){
-  //     if(currentTime.slice(22,24)===reminders[0].time.slice(22,24)){
-  //       console.log(reminders[0].time.slice(22,24),":",currentTime.slice(22,24));
-  //       // return;
-  //     }
-  //     //  alert("reminder working");
-  //   }
-  //   else if(currMin>=reminderSmallestMin && currMin<=reminderLargestMin){
-  //     reminders.forEach((remind)=>{
-  //       if(remind.time===currentTime)
-  //       console.log(remind.time,":",currentTime)
-  //         //  alert("reminder working");
-  //     })
-  //   }
-  //  } 
-    setCurrentTime(new Date().toString());
+     setCurrentTime(new Date().toString());
   })
 
- const checkReminder=()=>{
-
- }
   if(reminders[0] ){
     // checkReminder()
     reminders.forEach((remind)=>{
-      if(remind.time=== new Date().toString() && new Date().getMilliseconds()===0){
+      if(remind.time=== new Date().toString() && new Date().getMilliseconds()===0 && Notification.permission==="granted" ){
         console.log('check',new Date().getMilliseconds());
         showReminder();
         return;

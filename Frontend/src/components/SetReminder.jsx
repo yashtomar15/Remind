@@ -29,8 +29,9 @@ export const SetReminder=({addReminder})=>{
     return (<>
     <form onSubmit={handleAdd}>
         <input type={'text'} name="reminder" onChange={handleChange} placeholder="I have to do.." />
+        <input type={"text"} name="link" onChange={handleChange} placeholder="Metting link.."  />
         <DateTimePicker onChange={onChange} value={value} />
-        <input type={'submit'}  value="Add Remind" onChange={handleChange}/>
+        <input type={'submit'}  value="Remind me" onChange={handleChange}/>
     </form>
     </>)
 }
