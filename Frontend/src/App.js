@@ -3,26 +3,34 @@ import { SetReminder } from './components/SetReminder';
 import './App.css';
 import axios from 'axios';
 import {Reminders} from './components/Reminders';
-import {PopupExample} from './components/ReminderPopup';
-import {Routes,Route} from 'react-router';
+import {Routes,Route} from 'react-router-dom';
 import {Navbar} from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { Logout } from './components/Logout';
+import history from './utilis/history';
+import Diary from './components/Diary/Diary';
 
 function App() {
 const [currentTime,setCurrentTime]=useState(new Date().toString());
 const [reminders,setReminders]=useState([]);
 
-  const showReminder=()=>{
-    const reminder=new Notification("You have to do",{
-      body:"you have a scrum at 9:00am",
-      icon:'https://cdn.shopify.com/s/files/1/0248/3473/6191/files/Designer_Shoes_2160x.jpg?v=1630420978'
-    })
-    // Notification.onClick=(event)=>{
-    //   window.location.href='https://google.com';
-    // }
+  const showReminder=(task,time)=>{
+    if(task && time){
+      const reminder=new Notification("You have to do",{
+        body:task,
+        icon:process.env.PUBLIC_URL+"screenshot (621).png"
+      })
+    }else if(time){
+      const reminder=new Notification("You have to do",{
+        body:'Something',
+        icon:process.env.PUBLIC_URL+"screenshot (621).png"
+      })
+    }
+    Notification.onClick=(event)=>{
+    }
   }
+
 // showReminder();
 useEffect(()=>{
   if(Notification.permission==="default"){
@@ -35,11 +43,11 @@ useEffect(()=>{
     })
   }
   // showReminder();
-  axios.get('https://remind13.herokuapp.com/reminder/62e3e01b166c3cb73abdbfc4')
+  let token =JSON.parse(localStorage.getItem('token'));
+
+  token && axios.get(`https://remind13.herokuapp.com/reminder/${token}`)
   .then((res)=>{
     console.log(res.data,": response");
-    // let sortedReminder=res.data;
-    // sortedReminder=sortedReminder.sort((a,b)=>{return Number(a.time.slice(19,21)) - Number(b.time.slice(19,21))});
     setReminders(res.data);
     console.log(reminders,": reminders from backend");
   }).catch((err)=>{
@@ -57,9 +65,8 @@ useEffect(()=>{
     reminders.forEach((remind)=>{
       if(remind.time=== new Date().toString() && new Date().getMilliseconds()>=0 && new Date().getMilliseconds()<=20 && Notification.permission==="granted" ){
         console.log('check',new Date().getMilliseconds());
-        alert("reminder working");
-        showReminder();
-        // return;
+        // alert("reminder working");
+        showReminder(remind.task,remind.time);
     }
     })
   }
@@ -71,27 +78,31 @@ useEffect(()=>{
       console.log(reminders,": reminders from app");
   }
 
+  const LoginUpdate=()=>{
+    
+  }
   // console.log(reminders,": reminders from app");
-
+  let token=JSON.parse(localStorage.getItem('token'));
   return (
     <div className="App">
-      <Navbar />
-     <div className="Reminder">
-    <Routes>
+      <Navbar token={token}/>
+
+    <Routes history={history}>
    <Route path="/remind" element={
-   <div>    
+   <div className="Reminder">    
     <h1 style={{color:'#56b389'}}>Remind</h1>
     <p>{currentTime.toString().slice(0,24)}</p>
     <SetReminder addReminder={addReminder} /> 
-    <Reminders reminders={reminders}/></div>
+    <Reminders reminders={reminders}/>
+    </div>
   } /> 
-  <Route path="/diary" element={<div>Dairy</div>} />
-  <Route path='/signup' element={<Signup />} />
-  <Route path='/' element={<Login />} />
+
+  <Route path="/diary" element={<Diary />} />
+  <Route path='/' element={<Signup />} />
+  <Route path='/login' element={<Login />} />
   <Route path='/logout' element={<Logout />} />
     </Routes>
     {/* <CustomDateTimePicker /> */}
-      </div>
     </div>
   );
 }

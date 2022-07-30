@@ -1,0 +1,11 @@
+.signupButton{
+    width: 45%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #2ea3f8;
+    font-size: 17px;
+    font-weight: bold;
+    color:white;
+    border: none;
+    cursor: pointer;
+}

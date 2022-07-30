@@ -1,0 +1,42 @@
+.textContainerDiv {
+    margin: 5%;
+}
+
+.buttonCss {
+    margin-left:2.5%;
+
+}
+
+.buttonCss button {
+    height: 40px;
+    width: auto;
+    margin-left: 2%;
+    cursor: pointer;
+    background-color:#01796F;
+    border: 2px solid #01796F;
+    border-radius: 10px;
+    color: white ;
+}
+
+.textCalculation {
+    margin-left: 5%;
+}
+
+.headingDiv {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.saveButton {
+    margin: 5%;
+}
+.saveButton button {
+    height: 40px;
+    width: 60px;
+    background-color: #01796F;
+    border: 2px solid #01796F;
+    border-radius: 10px;
+    color: white ;
+    cursor: pointer;
+
+}

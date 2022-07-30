@@ -16,7 +16,8 @@ export const SetReminder=({addReminder})=>{
     }
 
     useEffect(()=>{
-        setReminder({...reminder,time:value.toString(),userid:"62e3e01b166c3cb73abdbfc4"});
+        let token=JSON.parse(localStorage.getItem('token'));
+       token && setReminder({...reminder,time:value.toString(),userid:token});
     },[value]);
 
     const handleAdd=(e)=>{

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import styles from './signup.module.css';
+
 const MainDiv = styled.div`
   width: 95%;
   display: flex;
@@ -26,7 +29,7 @@ const Input = styled.input`
   padding: 0.8em;
   height: 20px;
   border-radius: 5px;
-  border: none;
+  border :none;
   background-color: rgb(240, 240, 240);
   font-size: 15px;
   &:hover {
@@ -50,6 +53,7 @@ const Button = styled.button`
 
 const Signup = () => {
   const [signUpdata, setsignUpdata] = useState({});
+const navigate=useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,18 +61,20 @@ const Signup = () => {
   };
 
   const handleSignup = (e) => {
-    console.log(signUpdata)
     e.preventDefault();
+    console.log(signUpdata,"signup details")
     axios
       .post('https://blueflyapp.herokuapp.com/Auth/signup', signUpdata)
       .then((res) => {
-        if (res.data.message) {
+        console.log(res.data,'from signup databse')
+        if (res.data.response) {
+          navigate('/login');
+          alert("Signed Up succesfully");
         }
       })
       .catch((err) => {
         console.log(err);
       });
-    alert('Signup Successful');
   };
   return (
     <div>
@@ -76,12 +82,13 @@ const Signup = () => {
         <div>
           <Img src='https://demos.creative-tim.com/vue-material-dashboard-2/img/illustration-signin.feec7647.jpg'></Img>
         </div>
+        
         <div style={{ margin: 'auto',boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',padding: 20 }}>
           <div style={{ textAlign: 'left' }}>
-            <h1>Sign Un</h1>
+            <h1>Sign Up</h1>
             <p>Enter your email and password to register</p>
           </div>
-          <Form>
+          <Form onSubmit={handleSignup} >
             <Input
               type='text'
               placeholder='First Name'
@@ -115,22 +122,25 @@ const Signup = () => {
             <br />
             <input type='checkbox' required />
             <label>I agree the Terms and Conditions</label>
+            <br />
+            <input className={styles.signupButton} type={"submit"} value="SIGN UP"/>
           </Form>
-          <Button onClick={handleSignup}>
+          {/* <Button onClick={handleSignup} style={{ color: 'white', textDecoration: 'none' }}>
+          SIGN UP
             <Link
               to='/remind'
               style={{ color: 'white', textDecoration: 'none' }}>
               SIGN UP
             </Link>
-          </Button>
+          </Button> */}
           <br />
           <br />
           <label>
-            Already have an account?
+            Already have an account? 
             <Link
               to='/login'
-              style={{ color: 'darkblue', textDecoration: 'none' }}>
-              Sign-up
+              style={{ color: '#4b90fe', textDecoration: 'none' }}>
+               Sign-In
             </Link>
           </label>
         </div>

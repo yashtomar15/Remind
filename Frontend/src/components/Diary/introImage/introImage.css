@@ -1,0 +1,10 @@
+
+.introImageDiv{
+    /* border: 1px solid black; */
+    height: 350px;
+    background-size: cover;
+    background-position: center; 
+  background-repeat: no-repeat; 
+    background-image: url("https://thumbs.dreamstime.com/z/coronavirus-group-people-mask-speech-bubble-vector-covid-large-student-white-medical-face-dispute-icon-dialogue-discussion-179793711.jpg");
+    
+}

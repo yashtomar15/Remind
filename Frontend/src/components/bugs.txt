@@ -1,0 +1,7 @@
+Signup is not working properly because after Signup we need to login once for getting the token , 
+In signup we doesn't get token in response of posting data --
+>and our reminder app is storing reminders in Signin persons database for this we need to have token of login user,
+-->which we only get form login not Signup.
+but in right manner Signup is also need to give token in return of posting data.
+
+Solution: correct Signup method from backend and deploy again.

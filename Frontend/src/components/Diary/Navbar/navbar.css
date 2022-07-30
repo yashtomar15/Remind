@@ -1,0 +1,26 @@
+
+.NavbarContainer{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    /* border: 1px solid black; */
+    
+}
+
+.logoImage{
+    height: 100px;
+    width: 200px;
+    margin-left: 10%;
+    /* border: 1px solid black; */
+   
+}
+.logoImage img {
+    height: 100px;
+    width: 400px;
+}
+
+
+
+ 
+
+ 

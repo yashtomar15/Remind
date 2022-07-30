@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import history from '../utilis/history';
+import { useNavigate } from 'react-router-dom';
 
 const Body = styled.div`
   background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');
@@ -49,36 +51,38 @@ const Sign = styled.div`
 `;
 
 const Login = () => {
-  
-  const [email, setEmail] = useState('');
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
+const navigate=useNavigate();
 
   const handleChange=(e)=>{
     setUser({...user,[e.target.name]:e.target.value});
   }
+
   const handleLogin = () => {
     console.log(user," user details")
-    axios
+   axios
       .post('https://blueflyapp.herokuapp.com/Auth/login',user)
       .then((res) => {
-        //alert('Loging Successful');
         console.log(res,"string");
 
-         if (res.data) {
-        //   localStorage.setItem('email', JSON.stringify(res.data.email));
+         if (res.data.token) {
         localStorage.setItem('token', JSON.stringify(res.data.token));
-           navigate("/remind");
+          // history.push("/remind");
+          navigate('/remind');
+           alert('Loging Successful');
+         }else{
+          // history.push('/')
+          alert("Invalid Credentials");
          }
       })
       .catch((err) => {
         console.log(err,"error");
+        alert("Invalid Credentials")
       });
   };
 
   return (
     <Body>
-      <Form>
         <Sign>
           <h1>Sign-In</h1>
           <Input
@@ -97,12 +101,13 @@ const Login = () => {
             required
           />
           <br />
-          <Button onClick={handleLogin}>
-            <Link
+          <Button onClick={handleLogin} style={{ color: 'white', textDecoration: 'none',cursor: 'pointer' }}>
+            Sign In
+            {/* <Link
               to='/remind'
               style={{ color: 'white', textDecoration: 'none' }}>
               Sign In
-            </Link>
+            </Link> */}
           </Button>
           <br />
           <label>
@@ -112,7 +117,6 @@ const Login = () => {
             </Link>
           </label>
         </Sign>
-      </Form>
     </Body>
   );
 }
