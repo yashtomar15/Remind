@@ -3,7 +3,7 @@ import { SetReminder } from './components/SetReminder';
 import './App.css';
 import axios from 'axios';
 import {Reminders} from './components/Reminders';
-// import CustomDateTimePicker from './components/DateTime';
+import {PopupExample} from './components/ReminderPopup';
 
 function App() {
 const [currentTime,setCurrentTime]=useState(new Date().toString());
@@ -64,15 +64,16 @@ useEffect(()=>{
       console.log(reminders,": reminders from app");
   }
 
-  // console.log(reminders,": reminders from app");
+  console.log(reminders,": reminders from app");
 
   return (
     <div className="App">
      <div className="Reminder">
             <h1 style={{color:'#56b389'}}>Remind</h1>
-    <p>{currentTime.toString().slice(0,24)}</p>
+            {/* <PopupExample /> */}
+    {/* <p>{currentTime.toString().slice(0,24)}</p>
     <SetReminder addReminder={addReminder}/>
-    <Reminders reminders={reminders}/>
+    <Reminders reminders={reminders}/> */}
     {/* <CustomDateTimePicker /> */}
       </div>
     </div>
