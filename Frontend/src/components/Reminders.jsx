@@ -45,15 +45,16 @@ export const Reminders=({reminders})=>{
 
   return (<>
    <div className={"allReminders"}>
-    {showReminders.map((reminder)=>{
+    {showReminders.map((reminder,ind)=>{
 
       return (
         <Popup
+          key={ind}
         trigger={   
         <div className={styles.reminders} key={reminder._id} >
         <p>{reminder.task}</p>
         <p>{reminder.time.slice(16,21)} {Number(reminder.time.slice(16,18))>12 ? (<span>PM</span>):(<span>AM</span>)}</p>
-        <IconButton aria-label="delete" size="large" onClick={(e)=>handleDelete(reminder._id)}>
+        <IconButton aria-label="delete" size="large" >
         <DeleteIcon fontSize="inherit" onClick={(e)=>handleDelete(reminder._id)}/>
       </IconButton>
         </div>
