@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-import history from '../utilis/history';
 import { useNavigate } from 'react-router-dom';
 
 const Body = styled.div`
@@ -61,17 +60,15 @@ const navigate=useNavigate();
   const handleLogin = () => {
     console.log(user," user details")
    axios
-      .post('https://blueflyapp.herokuapp.com/Auth/login',user)
+      .post('https://bluelybackend.herokuapp.com/Auth/login',user)
       .then((res) => {
         console.log(res,"string");
 
          if (res.data.token) {
         localStorage.setItem('token', JSON.stringify(res.data.token));
-          // history.push("/remind");
           navigate('/remind');
            alert('Loging Successful');
          }else{
-          // history.push('/')
           alert("Invalid Credentials");
          }
       })
@@ -103,16 +100,11 @@ const navigate=useNavigate();
           <br />
           <Button onClick={handleLogin} style={{ color: 'white', textDecoration: 'none',cursor: 'pointer' }}>
             Sign In
-            {/* <Link
-              to='/remind'
-              style={{ color: 'white', textDecoration: 'none' }}>
-              Sign In
-            </Link> */}
           </Button>
           <br />
           <label>
             Don't have an account?
-            <Link to='/signup' style={{ color: '', textDecoration: 'none' }}>
+            <Link to='/' style={{ color: '', textDecoration: 'none' }}>
               Sign Up
             </Link>
           </label>

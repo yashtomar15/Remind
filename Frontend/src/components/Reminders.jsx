@@ -1,11 +1,11 @@
 import React ,{useEffect, useState} from 'react';
-import styles from './reminder.module.css';
+import styles from '../styles/reminder.module.css';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Popup from 'reactjs-popup';
-import './reminderPopup.css';
+import '../styles/reminderPopup.css';
 import { style } from '@mui/system';
 
 export const Reminders=({reminders})=>{

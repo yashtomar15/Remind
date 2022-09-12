@@ -8,14 +8,13 @@ import {Navbar} from './components/Navbar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { Logout } from './components/Logout';
-import history from './utilis/history';
-import Diary from './components/Diary/Diary';
 
 function App() {
 const [currentTime,setCurrentTime]=useState(new Date().toString());
 const [reminders,setReminders]=useState([]);
 
   const showReminder=(task,time)=>{
+    console.log(task,": task", time,": time")
     if(task && time){
       const reminder=new Notification("You have to do",{
         body:task,
@@ -27,8 +26,8 @@ const [reminders,setReminders]=useState([]);
         icon:process.env.PUBLIC_URL+"screenshot (621).png"
       })
     }
-    Notification.onClick=(event)=>{
-    }
+    // Notification.onClick=(event)=>{
+    // }
   }
 
 // showReminder();
@@ -82,22 +81,24 @@ useEffect(()=>{
     
   }
   // console.log(reminders,": reminders from app");
-  let token=JSON.parse(localStorage.getItem('token'));
+  // let token=JSON.parse(localStorage.getItem('token'));
   return (
     <div className="App">
-      <Navbar token={token}/>
+      <Navbar />
 
-    <Routes history={history}>
+    <Routes >
    <Route path="/remind" element={
-   <div className="Reminder">    
-    <h1 style={{color:'#56b389'}}>Remind</h1>
+   <div className="Reminder">  
+   <div>
+    <h1 style={{color:'#56508c',marginTop:"50px"}}>Remind</h1>
     <p>{currentTime.toString().slice(0,24)}</p>
+    </div>
     <SetReminder addReminder={addReminder} /> 
     <Reminders reminders={reminders}/>
     </div>
   } /> 
 
-  <Route path="/diary" element={<Diary />} />
+  {/* <Route path="/diary" element={<Diary />} /> */}
   <Route path='/' element={<Signup />} />
   <Route path='/login' element={<Login />} />
   <Route path='/logout' element={<Logout />} />

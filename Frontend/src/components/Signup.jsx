@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styles from './signup.module.css';
+import styles from '../styles/signup.module.css';
 
 const MainDiv = styled.div`
   width: 95%;
@@ -15,7 +15,10 @@ const MainDiv = styled.div`
 `;
 
 const Img = styled.img`
-  width: 80%;
+  width: 105%;
+  height:580px;
+  position:relative;
+  left:-33px;
   border-radius: 10px;
 `;
 
@@ -60,27 +63,52 @@ const navigate=useNavigate();
     setsignUpdata({ ...signUpdata, [name]: value });
   };
 
+  const getUserToken=(user)=>{
+    axios
+    .post('https://bluelybackend.herokuapp.com/Auth/login',user)
+    .then((res) => {
+      console.log(res,"string");
+      if (res.data.token) {
+      localStorage.setItem('token', JSON.stringify(res.data.token));
+        navigate('/remind');
+        alert("Signed Up succesfully");
+      }
+    })
+    .catch((err)=>{
+       console.log("error occured",err);
+       alert('Internal error try after sometime');
+    })
+  }
+
+
+
   const handleSignup = (e) => {
+    let userDetails={
+      email:signUpdata.email,
+      password:signUpdata.password
+    }
     e.preventDefault();
     console.log(signUpdata,"signup details")
     axios
-      .post('https://blueflyapp.herokuapp.com/Auth/signup', signUpdata)
+      .post('https://bluelybackend.herokuapp.com/Auth/signup', signUpdata)
       .then((res) => {
         console.log(res.data,'from signup databse')
         if (res.data.response) {
-          navigate('/login');
-          alert("Signed Up succesfully");
+          getUserToken(userDetails);
         }
       })
       .catch((err) => {
         console.log(err);
+        alert("Internal error try after sometime");
       });
   };
+
   return (
     <div>
+      <div style={{marginTop:"50px"}}></div>
       <MainDiv>
         <div>
-          <Img src='https://demos.creative-tim.com/vue-material-dashboard-2/img/illustration-signin.feec7647.jpg'></Img>
+          <Img src={process.env.PUBLIC_URL+"reminder-notification.jpg"} ></Img>
         </div>
         
         <div style={{ margin: 'auto',boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',padding: 20 }}>
@@ -125,14 +153,6 @@ const navigate=useNavigate();
             <br />
             <input className={styles.signupButton} type={"submit"} value="SIGN UP"/>
           </Form>
-          {/* <Button onClick={handleSignup} style={{ color: 'white', textDecoration: 'none' }}>
-          SIGN UP
-            <Link
-              to='/remind'
-              style={{ color: 'white', textDecoration: 'none' }}>
-              SIGN UP
-            </Link>
-          </Button> */}
           <br />
           <br />
           <label>

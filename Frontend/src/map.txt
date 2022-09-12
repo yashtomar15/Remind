@@ -7,3 +7,9 @@ For Signin/Signup
 
 3. for getting user profile by user id
     https://bonsai15.herokuapp.com/profile/"userid"
+
+
+
+possible improvements-
+
+1. after completing task-, task ui should change .

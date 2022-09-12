@@ -4,7 +4,7 @@ import {useState} from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import styles from './reminder.module.css';
+import styles from '../styles/reminder.module.css';
 
 export const SetReminder=({addReminder})=>{
     const [reminder,setReminder]=useState({});
@@ -39,7 +39,7 @@ export const SetReminder=({addReminder})=>{
         <input className={styles.inputBox} type={"text"} name="link" onChange={handleChange} placeholder="Metting link.."  />
         <DateTimePicker onChange={onChange} value={value} className={styles.time}/>
         {/* <Box className={styles.button}> */}
-        <Button variant="contained" size="medium" onClick={handleAdd} style={{backgroundColor:"#56b389"}}>
+        <Button variant="contained" size="medium" onClick={handleAdd} style={{backgroundColor:"#8782b4"}}>
           Remind me 
         </Button>
         {/* </Box> */}

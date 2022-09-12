@@ -2,7 +2,7 @@
 .reminders{
     display:flex;
     justify-content: space-around;
-    border:2px solid #56b389;
+    border:2px solid #8782b4;
     width:70%;
     margin:auto;
     margin-bottom:10px;
@@ -24,11 +24,15 @@ width:10%
 }
 .form{
     margin-bottom: 20px;
+    /* z-index: 10000;
+    position: fixed;
+    top: 180px;
+    width: 100%; */
 }
 .inputBox{
     outline: none;
     width:200px;
-    border:1px solid #56b389;
+    border:1px solid #56508c;
     height:35px;
     margin-right: 10px;
 }
@@ -38,6 +42,29 @@ width:10%
     /* margin-left:30px; */
     justify-content: space-evenly;
     height:50px;
-    background-color: #56b389;
-    text-align: left;
+    background-color: 
+    #56508c;
+    /* text-align: left; */
+    z-index: 10000;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.linkDecoration{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight:600;
+    color: white;
+    /* accent-color: auto | <color>; */
+}
+.linkDecoration:focus{
+    color:#d3c2ee;
+}
+.linkDecoration:hover{
+    color:#d3c2ee;
+}
+.navbar>div{
+    padding-top: 10px;
 }
